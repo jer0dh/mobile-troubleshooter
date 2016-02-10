@@ -49,5 +49,11 @@ describe('Testing logger ctrl aspects', function() {
         expect(model.config.location).toBe('bottom right');
     });
 
+    it('setConfig, will set location set correctly', function() {
 
+        var logger = proxyquire('../app/logger.ctrl.js',{ './logger.view.js': viewStub})();
+        expect(logger._test.model.config.location).toBe('top left');
+        logger.setConfig({location: 'bottom right'});
+        expect(logger._test.model.config.location).toBe('bottom right');
+    });
 });

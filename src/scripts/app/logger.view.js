@@ -10,21 +10,20 @@ module.exports = {
         }
     },
 
-    init: function () {
+    init: function (cfg) {
         //prepare rconsole area
         var r = document.createElement('div');
-        r.innerHTML = '<div id="rconsole"></div>';
+        r.setAttribute('id', 'rconsole');
         document.querySelector('body').appendChild(r);
         this.$rconsole = document.getElementById('rconsole');
 
+        console.log(this.$rconsole);
 
         //add initial styles
         var sheet = document.createElement('style');
         sheet.innerHTML = "#rconsole { " +
             "     padding: 5px; " +
             "     position: fixed; " +
-            "     top: 0; " +
-            "     left: 0; " +
             "     width: 20%; " +
             "     max-height: 300px; " +
             "     overflow: auto; " +
@@ -39,6 +38,35 @@ module.exports = {
             "}";
 
         document.body.appendChild(sheet);
+        this.positionRconsole(cfg.location);
 
+    },
+    positionRconsole: function(s) {
+        this.$rconsole.style.right="inherit";
+        this.$rconsole.style.left="inherit";
+        this.$rconsole.style.top="inherit";
+        this.$rconsole.style.bottom="inherit";
+        switch (s) {
+            case 'top right':
+                this.$rconsole.style.right="0";
+                this.$rconsole.style.top="0";
+                break;
+            case 'bottom left':
+                this.$rconsole.style.left="0";
+                this.$rconsole.style.bottom="0";
+                break;
+            case 'bottom right':
+                this.$rconsole.style.right="0";
+                this.$rconsole.style.bottom="0";
+                break;
+            default:
+                this.$rconsole.style.left="0";
+                this.$rconsole.style.top="0";
+        }
+
+    },
+
+    removeRconsole: function() {
+        document.querySelector('body').removeChild(this.$rconsole);
     }
 };

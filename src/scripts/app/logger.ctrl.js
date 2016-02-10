@@ -1,5 +1,5 @@
 //TODO - add active boolean where one can put back console.log, remove any DOM added, etc...and visa versa
-var model = require('./logger.model.js');
+var model = require('./logger.model.js')();
 var view = require('./logger.view.js');
 
 
@@ -12,7 +12,7 @@ module.exports =  function(r, cfg) {
                                 model.setRemote(r);
                             }
                             model.setConfig(cfg);
-                            view.init();
+                            view.init(model.getConfig());
                             this.defineConsoleLog();
                         },
 
@@ -26,11 +26,19 @@ module.exports =  function(r, cfg) {
                                         }
                                     }
                             },
+            deactivate:     function() {
+                this.restoreConsoleLog();
+                view.removeRconsole();
+            },
 
             restoreConsoleLog: function() {
-                console.log = model.oldLog;
-                console.log('finished restoreConsoleLog');
-            }
+                                console.log = model.oldLog;
+                                console.log('finished restoreConsoleLog');
+                            },
+            setConfig:          function(cfg) {
+                                    model.setConfig(cfg);
+                                    view.positionRconsole(cfg.location);
+                                }
 
         };
 
@@ -40,7 +48,7 @@ module.exports =  function(r, cfg) {
     var api = {
         setRemote:  model.setRemote.bind(model),
         setConfig:  model.setConfig.bind(model),
-        deactivate: ctrl.restoreConsoleLog
+        deactivate: ctrl.deactivate.bind(ctrl)
     };
 
     //removeIf(production)
