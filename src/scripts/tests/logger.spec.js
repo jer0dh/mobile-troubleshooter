@@ -3,7 +3,8 @@ var proxyquire = require('proxyquire'),
 
 viewStub.init = function() {return {}; };
 viewStub.rconsole = function(){return {}; };
-
+viewStub.removeRconsole = function(){return {}; };
+viewStub.addStyle = function() {return {}};
 
 describe('Testing logger ctrl aspects', function() {
     var oldConsole;
@@ -25,11 +26,11 @@ describe('Testing logger ctrl aspects', function() {
         expect( console.log === oldConsole ).toBe(false);
     });
 
-    it('deactivate() restores console.log to original', function() {
+    it('remove() restores console.log to original', function() {
         expect( console.log === oldConsole).toBe(true);
         var logger = proxyquire('../app/logger.ctrl.js',{ './logger.view.js': viewStub})();
         expect( console.log === oldConsole ).toBe(false);
-        logger.deactivate();
+        logger.remove();
         expect( console.log === oldConsole).toBe(true);
     });
 

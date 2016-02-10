@@ -26,7 +26,7 @@ module.exports =  function(r, cfg) {
                                         }
                                     }
                             },
-            deactivate:     function() {
+            remove:     function() {
                 this.restoreConsoleLog();
                 view.removeRconsole();
             },
@@ -47,8 +47,9 @@ module.exports =  function(r, cfg) {
 
     var api = {
         setRemote:  model.setRemote.bind(model),
-        setConfig:  model.setConfig.bind(model),
-        deactivate: ctrl.deactivate.bind(ctrl)
+        setConfig:  ctrl.setConfig.bind(ctrl),
+        remove: ctrl.remove.bind(ctrl),
+        addStyle: view.addStyle.bind(view)
     };
 
     //removeIf(production)

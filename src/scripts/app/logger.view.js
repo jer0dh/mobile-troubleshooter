@@ -65,7 +65,9 @@ module.exports = {
         }
 
     },
-
+    addStyle: function(style, value) {
+        this.$rconsole.style[style] = value;
+    },
     removeRconsole: function() {
         document.querySelector('body').removeChild(this.$rconsole);
     }
