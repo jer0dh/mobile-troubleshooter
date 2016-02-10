@@ -13,6 +13,7 @@ var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var jshint = require('gulp-jshint');
 var jasmine = require('gulp-jasmine');
+var removeCode = require('gulp-remove-code');
 
 gulp.task('clean', function(cb) {
       clean('./dist', cb);
@@ -31,31 +32,35 @@ gulp.task('lint', function() {
 
 gulp.task('scripts', function() {
     var b = browserify({
-        entries: 'src/scripts/main.js',
+        entries: 'src/scripts/app/logger.js',
         debug: true
     });
 
     b.bundle()
-        .pipe(source('main.js'))
+        .pipe(source('logger.js'))
         .pipe(buffer())
-        .pipe(gulp.dest('dist/scripts'))
+        .pipe(removeCode({ production: true}))
+        .pipe(gulp.dest('dist/scripts/app'))
         .pipe(rename({extname: '.min.js'}))
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(uglify())
         .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest('dist/scripts/'))
+        .pipe(gulp.dest('dist/scripts/app'))
         .pipe(browserSync.stream());
 });
 
-/*gulp.task('scripts', function() {
-   gulp.src(['src/scripts/main.js'])  //Add more scripts in the order you want concated here
-       .pipe(sourcemaps.init())
-       .pipe(concat('main.js'))
-       .pipe(uglify())
-       .pipe(sourcemaps.write())
-       .pipe(gulp.dest('dist/scripts'))
-       .pipe(browserSync.stream());
-});*/
+gulp.task('other-scripts', function() {
+        gulp.src('src/scripts/*.js')
+            .pipe(removeCode({ production: true}))
+            .pipe(gulp.dest('dist/scripts'))
+            .pipe(rename({extname: '.min.js'}))
+            .pipe(sourcemaps.init({loadMaps: true}))
+            .pipe(uglify())
+            .pipe(sourcemaps.write('./'))
+            .pipe(gulp.dest('dist/scripts'))
+            .pipe(browserSync.stream());
+});
+
 
 gulp.task('images', function() {
     gulp.src(['src/images/**/*'])
@@ -84,7 +89,8 @@ gulp.task('default', ['styles', 'scripts', 'images'], function() {
     //gulp.watch('src/**/*', browserSync.reload);
     gulp.watch('src/styles/**/*.css', ['styles']);
     gulp.watch('src/styles/**/*.scss', ['styles']);
-    gulp.watch('src/scripts/**/*.js', ['scripts']);
+    gulp.watch('src/scripts/app/**/*.js', ['scripts']);
+    gulp.watch('src/scripts/*.js', ['other-scripts']);
     gulp.watch('src/images/**.*', ['images']);
     gulp.watch('*.html', browserSync.reload);
 });

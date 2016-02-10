@@ -8,14 +8,18 @@ var oldConsole = console.log;
 
 describe('model', function() {
     var model;
+    var oldConsole;
 
     beforeEach(function() {
-
-        var logger = proxyquire('../app/logger.js',{ './logger.view.js': viewStub});
+        oldConsole = console.log;
+        var logger = proxyquire('../app/logger.ctrl.js',{ './logger.view.js': viewStub});
         model = logger()._test.model;
 
     });
 
+    afterEach(function() {
+        console.log = oldConsole;  //restore
+    });
 
     it("Initially false remote is false", function() {
         expect(model._remote).toBe(false);

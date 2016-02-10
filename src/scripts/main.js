@@ -1,4 +1,3 @@
-var logger = require('./app/logger.js');
 
 jQuery('document').ready(function() {
 
