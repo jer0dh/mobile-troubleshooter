@@ -5,6 +5,7 @@ viewStub.init = function() {return {}; };
 viewStub.rconsole = function(){return {}; };
 viewStub.removeRconsole = function(){return {}; };
 viewStub.addStyle = function() {return {}};
+viewStub.positionRconsole = function() {return {};};
 
 describe('Testing logger ctrl aspects', function() {
     var oldConsole;

@@ -5,7 +5,7 @@ var view = require('./logger.view.js');
 
 module.exports =  function(r, cfg) {
 
-        ctrl = {
+        var ctrl = {
 
             init:       function(r, cfg) {
                             if (typeof r === 'boolean') {
