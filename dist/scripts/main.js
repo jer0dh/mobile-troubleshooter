@@ -1,28 +1,24 @@
+'use strict';
 
-jQuery('document').ready(function() {
+jQuery('document').ready(function () {
 
     console.log('hello');
     console.log(logger);
-    log = logger(true, {location: 'top right'});
+    var log = logger(true, { location: 'top right' });
     console.log('world');
-    for(var i = 0; i < 50 ; ++i) {
+    for (var i = 0; i < 50; ++i) {
         console.log('i = ' + i);
     }
     log.setRemote(false);
     console.log('setRemote');
-    for(var i = 0; i < 50 ; ++i) {
+    for (var i = 0; i < 50; ++i) {
         console.log('i = ' + i);
     }
     console.log('addstyle');
-    log.addStyle('background-color','rgba(230,230,55,0.8)');
+    log.addStyle('background-color', 'rgba(230,230,55,0.8)');
     log.setRemote(true);
-    for(var i = 0; i < 50 ; ++i) {
+    for (var i = 0; i < 50; ++i) {
         console.log('i = ' + i);
     }
-    log.setConfig({location: 'bottom left'});
+    log.setConfig({ location: 'bottom left' });
 });
-
-
-
-
-
