@@ -17,25 +17,24 @@ module.exports = {
         document.querySelector('body').appendChild(r);
         this.$rconsole = document.getElementById('rconsole');
 
-        console.log(this.$rconsole);
-
         //add initial styles
         var sheet = document.createElement('style');
-        sheet.innerHTML = "#rconsole { " +
-            "     padding: 5px; " +
-            "     position: fixed; " +
-            "     width: 20%; " +
-            "     max-height: 300px; " +
-            "     overflow: auto; " +
-            "     background: rgba(255,255,255,0.65); " +
-            "     color: #000000; " +
-            "     font-size: 12px; " +
-            "     line-height: 1; " +
-            "     z-index: 9999; " +
-            " }" +
-            "#rconsole p {" +
-            "   margin:0;" +
-            "}";
+        sheet.setAttribute('id', 'rconsoleStyles');
+        sheet.innerHTML = `#rconsole {
+                 padding: 5px;
+                 position: fixed;
+                 width: 20%;
+                 max-height: 300px;
+                 overflow: auto;
+                 background: rgba(255,255,255,0.65);
+                 color: #000000;
+                 font-size: 12px;
+                 line-height: 1;
+                 z-index: 9999;
+             }
+            #rconsole p {
+               margin:0;
+            }`;
 
         document.body.appendChild(sheet);
         this.positionRconsole(cfg.location);
@@ -70,5 +69,13 @@ module.exports = {
     },
     removeRconsole: function() {
         document.querySelector('body').removeChild(this.$rconsole);
+        var $sheet = document.getElementById('rconsoleSheet');
+        document.body.removeChild($sheet);
+    },
+    hideRconsole: function() {
+      this.addStyle('display', 'none');
+    },
+    showRconsole: function() {
+      this.addStyle('display', 'block');
     }
 };

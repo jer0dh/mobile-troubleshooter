@@ -38,7 +38,16 @@ module.exports =  function(r, cfg) {
             setConfig:          function(cfg) {
                                     model.setConfig(cfg);
                                     view.positionRconsole(cfg.location);
-                                }
+                                },
+            turnOff:   function(){
+                model.setRemote(false);
+                view.hideRconsole();
+            },
+
+            turnOn: function() {
+                model.setRemote(true);
+                view.showRconsole();
+            }
 
         };
 
@@ -49,7 +58,9 @@ module.exports =  function(r, cfg) {
         setRemote:  model.setRemote.bind(model),
         setConfig:  ctrl.setConfig.bind(ctrl),
         remove: ctrl.remove.bind(ctrl),
-        addStyle: view.addStyle.bind(view)
+        addStyle: view.addStyle.bind(view),
+        turnOff: ctrl.turnOff.bind(ctrl),
+        turnOn: ctrl.turnOn.bind(ctrl)
     };
 
     //removeIf(production)

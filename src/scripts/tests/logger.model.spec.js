@@ -21,7 +21,7 @@ describe('model', function() {
         console.log = oldConsole;  //restore
     });
 
-    it("Initially false remote is false", function() {
+    it("Initially _remote is false", function() {
         expect(model._remote).toBe(false);
     });
 

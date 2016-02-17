@@ -3,8 +3,8 @@
 jQuery('document').ready(function () {
 
     console.log('hello');
-    console.log(logger);
-    var log = logger(true, { location: 'top right' });
+    console.log(jhLogger);
+    var log = jhLogger(true, { location: 'top right' });
     console.log('world');
     for (var i = 0; i < 50; ++i) {
         console.log('i = ' + i);
@@ -21,4 +21,7 @@ jQuery('document').ready(function () {
         console.log('i = ' + i);
     }
     log.setConfig({ location: 'bottom left' });
+    console.log('turning off..you cannot see me');
+    log.turnOff();
+    log.turnOn();
 });
