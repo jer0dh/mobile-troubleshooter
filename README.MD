@@ -8,7 +8,7 @@ This creates a fixed transparent window and redirects the console.log output to 
 ## Usage 
 
 1. Download the `dist/scripts/app/logger.min.js` 
-1. Add a '<script>' tag in your HTML file.  `<script src="/yourpath/logger.min.js"></script>`
+1. Add a `<script>` tag in your HTML file.  `<script src="/yourpath/logger.min.js"></script>`
 1. In your javascript file, you can access the jhlogger reference that has been added from the above step.  To turn on:
 `var log = jhLogger(true);` 
 You can change the location of the window using:
